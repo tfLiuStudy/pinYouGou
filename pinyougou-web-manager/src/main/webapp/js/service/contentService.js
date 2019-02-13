@@ -28,5 +28,14 @@ app.service('contentService',function($http){
 	//搜索
 	this.search=function(page,rows,searchEntity){
 		return $http.post('../content/search.do?page='+page+"&rows="+rows, searchEntity);
-	}    	
+	}
+
+    /**
+	 * 查询首页的打广告
+     * @param categoryId  sh
+     * @returns {*}
+     */
+	this.findByCategoryId=function (categoryId) {
+		return $http.get('../content/findByCategoryId.do?&categoryId='+categoryId);
+    }
 });
