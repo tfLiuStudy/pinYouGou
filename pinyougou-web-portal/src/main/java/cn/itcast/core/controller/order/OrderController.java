@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/order")
 public class OrderController {
@@ -26,5 +28,12 @@ public class OrderController {
             e.printStackTrace();
             return new Result(false,"提交订单失败");
         }
+    }
+    //查询所有订单
+    @RequestMapping("/findAll")
+    public List<Order> findAll(){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        List<Order>OrderList = orderService.findAll(username);
+        return OrderList;
     }
 }
