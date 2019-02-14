@@ -5,16 +5,15 @@ import cn.itcast.core.pojo.user.User;
 import cn.itcast.core.service.user.UserService;
 import cn.itcast.core.utils.md5.MD5Util;
 import com.alibaba.dubbo.config.annotation.Service;
-import org.apache.commons.codec.digest.Md5Crypt;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
-import sun.security.provider.MD5;
 
 import javax.annotation.Resource;
 import javax.jms.*;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service

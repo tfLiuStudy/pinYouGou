@@ -24,4 +24,10 @@ public interface BrandService {
     void delete(Long[] ids);
 
     List<Map<String,String>> selectOptionList();
+    /**m
+     * 像数据库中添加商品列表
+     * @param brandList  list集合
+     * @return
+     */
+    void addList(List<Brand> brandList);
 }

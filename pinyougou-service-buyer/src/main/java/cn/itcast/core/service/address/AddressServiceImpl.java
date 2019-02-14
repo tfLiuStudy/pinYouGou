@@ -4,6 +4,7 @@ import cn.itcast.core.dao.address.AddressDao;
 import cn.itcast.core.pojo.address.Address;
 import cn.itcast.core.pojo.address.AddressQuery;
 import com.alibaba.dubbo.config.annotation.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -21,4 +22,22 @@ public class AddressServiceImpl implements AddressService {
         List<Address> addresses = addressDao.selectByExample(addressQuery);
         return addresses;
     }
+
+    //地址管理之地址添加
+    @Override
+    public void add(Address address) {
+        addressDao.insertSelective(address);
+    }
+
+    //地址管理之地址删除
+    @Transactional
+    @Override
+    public void del(Long[] ids) {
+        if (ids != null && ids.length>0){
+            for (Long id : ids) {
+                addressDao.deleteByExample(id);
+            }
+        }
+    }
+
 }

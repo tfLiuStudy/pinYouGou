@@ -8,10 +8,10 @@
         http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <dubbo:protocol name="dubbo" port="20883"/>
+    <!--spring与dubbo整合的配置文件-->
     <dubbo:application name="pinyougou-service-user"/>
     <dubbo:registry address="zookeeper://192.168.200.128:2181"/>
+    <!--配置dubbo的协议-->
+    <dubbo:protocol name="dubbo" port="20883"/>
     <dubbo:annotation package="cn.itcast.core.service"/>
-
-
 </beans>
