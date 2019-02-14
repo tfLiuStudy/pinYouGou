@@ -18,7 +18,7 @@ public class ItemSearchListener implements MessageListener{
     public void onMessage(Message message) {
         try {
             //获取到消息队列中的数据
-            ActiveMQTextMessage activeMQTextMessage= (ActiveMQTextMessage) message;
+            ActiveMQTextMessage activeMQTextMessage = (ActiveMQTextMessage) message;
             String id = activeMQTextMessage.getText();
             System.out.println("消费者itemsearch获得mq中的id:"+id);
             //消费消息
