@@ -1,12 +1,19 @@
 package cn.itcast.core.controller.upload;
 
 import cn.itcast.core.entity.Result;
+import cn.itcast.core.pojo.good.Brand;
 import cn.itcast.core.utils.fdfs.FastDFSClient;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -17,7 +24,7 @@ public class UploadController {
     private String FILE_SERVER_PATH;
 
     /**
-     * 文件上传
+     * 文件图片
      * @param file
      * @return
      */
@@ -42,5 +49,45 @@ public class UploadController {
 
     }
 
+    @RequestMapping("/dataImportBrand.do")
+    public Result dataImportBrand(MultipartFile file){
+        try {
+            InputStream ins = file.getInputStream();
+            //根据上述创建的输入流 创建工作簿对象
+            Workbook wb = WorkbookFactory.create(ins);
+            //得到第一页 sheet
+            //页Sheet是从0开始索引的
+            Sheet sheet = wb.getSheetAt(0);
+            //利用foreach循环 遍历sheet中的所有行
+            int i = 0;
+            List<Brand> list = new ArrayList<>();
+            for (Row row : sheet) {
+                if (i==0){  //第一行是标题
+                    i++;
+                    continue;
+                }
+                Brand brand = new Brand();
+                //遍历row中的所有方格
+                int j = 0;
+                for (Cell cell : row) { //0:name 1:first_char
+                    if (j==0){
+                        brand.setName(cell.toString());
+                    }
+                    if (j==1){
+                        brand.setFirstChar(cell.toString());
+                    }
+                    j++;
+                }
+                //添加到集合中
+                list.add(brand);
+            }
+            //关闭输入流
+            ins.close();
+            return new Result(true,"上传成功",list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false,"上传失败");
+        }
+    }
 
 }

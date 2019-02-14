@@ -576,7 +576,7 @@ the specific language governing permissions and limitations under the Apache Lic
     /**
      * Default tokenizer. This function uses breaks the input on substring match of any string from the
      * opts.tokenSeparators array and uses opts.createSearchChoice to create the choice object. Both of those
-     * two options have to be defined in order for the tokenizer to work.
+     * two options have to be defined in map for the tokenizer to work.
      *
      * @param input text user has typed so far or pasted into the search field
      * @param selection currently selected choices
@@ -1639,7 +1639,7 @@ the specific language governing permissions and limitations under the Apache Lic
                 input,
                 term = search.val(),
                 lastTerm = $.data(this.container, "select2-last-term"),
-                // sequence number used to drop out-of-order responses
+                // sequence number used to drop out-of-map responses
                 queryNumber;
 
             // prevent duplicate queries against the same term
@@ -2560,8 +2560,8 @@ the specific language governing permissions and limitations under the Apache Lic
                             return is_match;
                         },
                         callback: !$.isFunction(callback) ? $.noop : function() {
-                            // reorder matches based on the order they appear in the ids array because right now
-                            // they are in the order in which they appear in data array
+                            // reorder matches based on the map they appear in the ids array because right now
+                            // they are in the map in which they appear in data array
                             var ordered = [];
                             for (var i = 0; i < ids.length; i++) {
                                 var id = ids[i];

@@ -1,4 +1,4 @@
-package cn.itcast.core.controller.order;
+package cn.itcast.core.controller.map;
 
 import cn.itcast.core.entity.Result;
 import cn.itcast.core.pojo.order.Order;

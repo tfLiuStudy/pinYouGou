@@ -13,16 +13,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class UserDetailServiceImpl implements UserDetailsService{
+
     private SellerService sellerService;
     public void setSellerService(SellerService sellerService) {
         this.sellerService = sellerService;
     }
+
+
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Seller seller = sellerService.findOne(username);
         if (seller!=null && "1".equals(seller.getStatus())){
             //授权
-            Set<GrantedAuthority> authorities=new HashSet<>();
+            Set<GrantedAuthority> authorities=new HashSet<GrantedAuthority>();
             SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("ROLE_SELLER");
             authorities.add(simpleGrantedAuthority);
             User user = new User(username,seller.getPassword(),authorities);

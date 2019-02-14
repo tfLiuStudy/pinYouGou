@@ -130,4 +130,18 @@ public class BrandServiceImpl implements BrandService {
     public List<Map<String, String>> selectOptionList() {
         return brandDao.selectOptionList();
     }
+
+    /**m
+     * 像数据库中添加商品列表
+     * @param brandList  list集合
+     * @return
+     */
+    @Override
+    public void addList(List<Brand> brandList) {
+        if (brandList!=null&&brandList.size()>0){
+            for (Brand brand : brandList) {
+                brandDao.insertSelective(brand);
+            }
+        }
+    }
 }

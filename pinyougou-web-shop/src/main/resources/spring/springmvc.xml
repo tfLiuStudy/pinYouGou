@@ -34,6 +34,7 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
+
     <!--配置文件上传解析器-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <!--指定文件上传最大值-->
