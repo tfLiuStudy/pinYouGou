@@ -27,7 +27,6 @@ public class BrandController {
     @RequestMapping("/findAll.do")
     public List<Brand> findAll(){
         List<Brand> brandList = brandService.findAll();
-        System.out.println("1");//测试git提交
         return brandList;
     }
 

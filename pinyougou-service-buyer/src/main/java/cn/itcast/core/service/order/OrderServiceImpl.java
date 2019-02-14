@@ -103,4 +103,11 @@ public class OrderServiceImpl implements OrderService {
         //将购物车内的商品清空
         redisTemplate.boundHashOps("BUYER-CART").delete(username);
     }
+
+    //查询所有订单
+    @Override
+    public List<Order> findAll(String username) {
+        List<Order> orderList = orderDao.selectByExample(null);
+        return orderList;
+    }
 }
