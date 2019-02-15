@@ -28,28 +28,4 @@ public class AddressController {
         List<Address> addressList = addressService.findListByLoginUser(username);
         return addressList;
     }
-
-    /**
-     * 地址管理之地址的添加
-     * @return
-     */
-    @RequestMapping("/add")
-    public Result add(@RequestBody Address address){
-        try {
-            addressService.add(address);
-            return new Result(true,"添加成功");
-        } catch (Exception e) {
-            return new Result(false,"添加失败");
-        }
-    }
-
-    @RequestMapping("del")
-    public Result del(Long[] ids){
-        try {
-            addressService.del(ids);
-            return new Result(true,"删除成功");
-        } catch (Exception e) {
-            return new Result(false,"删除失败");
-        }
-    }
 }
