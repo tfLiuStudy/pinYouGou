@@ -29,11 +29,6 @@
             <artifactId>pinyougou-pojo</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>3.11</version>
-        </dependency>
 
     </dependencies>
 

@@ -2,6 +2,7 @@ package cn.itcast.core.service;
 
 import cn.itcast.core.dao.user.UserDao;
 import cn.itcast.core.pojo.user.User;
+import cn.itcast.core.pojo.user.UserQuery;
 import cn.itcast.core.service.user.UserService;
 import cn.itcast.core.utils.md5.MD5Util;
 import com.alibaba.dubbo.config.annotation.Service;
@@ -61,6 +62,32 @@ public class UserServicesImpl implements UserService {
             userDao.insertSelective(user);
         }else {
             throw new RuntimeException("验证码输入有误");
+        }
+    }
+
+    @Override
+    public User findOne(String userId) {
+        //userID 需要判断，有一个默认值
+        UserQuery userQuery = new UserQuery();
+        UserQuery.Criteria criteria = userQuery.createCriteria();
+        criteria.andUsernameEqualTo(userId);
+        User user = userDao.selectByExample(userQuery).get(0);
+        return user;
+    }
+
+    @Override
+    public void updateUser(User user) {
+        if (user==null){
+            throw new RuntimeException("请输完信息");
+        }
+        UserQuery userQuery = new UserQuery();
+        UserQuery.Criteria criteria = userQuery.createCriteria();
+        criteria.andUsernameEqualTo(user.getUsername());
+        List<User> userList = userDao.selectByExample(userQuery);
+        if (userList!=null&&userList.size()>0){
+            User userTar = userList.get(0);
+            user.setId(userTar.getId());
+            userDao.updateByPrimaryKeySelective(user);
         }
     }
 }

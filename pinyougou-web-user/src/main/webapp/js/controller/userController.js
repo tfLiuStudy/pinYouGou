@@ -1,5 +1,5 @@
  //控制层 
-app.controller('userController' ,function($scope,$controller   ,userService){	
+app.controller('userController' ,function($scope,$controller   ,userService,uploadService){
 	$scope.entity = {};
 	//注册用户
 	$scope.reg=function(){
@@ -32,5 +32,41 @@ app.controller('userController' ,function($scope,$controller   ,userService){
 			}
 		);		
 	}
+
+	$scope.user={}
+	//查询当前用户的信息
+	$scope.findOneByUserName=function () {
+		alert("111")
+		userService.findOneByUserName().success(
+			function (response) {
+				$scope.user = response;
+				$scope.user.headPic = response.headPic;
+            }
+		)
+    }
+
+    $scope.url;
+
+    $scope.uploadPhoto = function(){
+        // 调用uploadService的方法完成文件的上传=
+        uploadService.uploadFile().success(function(response){
+            if(response.flag){
+                alert(response.message);
+                // 获得url
+                $scope.url =  response.message;
+                $scope.user.headPic=$scope.url;
+            }else{
+                alert(response.message);
+            }
+        });
+    }
+
+    $scope.updateUserInfo = function () {
+		userService.updateUserInfo($scope.user).success(
+			function (response) {
+				alert(response.flag);
+            }
+		)
+    }
 	
 });	

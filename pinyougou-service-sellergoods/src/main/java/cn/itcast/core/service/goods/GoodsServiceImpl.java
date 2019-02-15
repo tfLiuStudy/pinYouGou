@@ -307,6 +307,24 @@ public class GoodsServiceImpl implements GoodsService {
         }
     }
 
+    @Override
+    public PageResult searchByMarket(Integer page, Integer rows) {
+        PageHelper.startPage(page,rows);
+        GoodsQuery goodsQuery = new GoodsQuery();
+        GoodsQuery.Criteria criteria = goodsQuery.createCriteria();
+        criteria.andAuditStatusEqualTo("1") ;//1 上架
+        Page<Goods> pageList = (Page<Goods>) goodsDao.selectByExample(goodsQuery);
+        return new PageResult(pageList.getResult(),pageList.getTotal());
+    }
+
+    @Override
+    public List<Goods> searchByMarketAll() {
+        GoodsQuery goodsQuery = new GoodsQuery();
+        GoodsQuery.Criteria criteria = goodsQuery.createCriteria();
+        criteria.andAuditStatusEqualTo("1") ;//1 上架
+        return goodsDao.selectByExample(goodsQuery);
+    }
+
     //抽取
     public void setItemAttribute(Goods goods, GoodsDesc goodsDesc, Item item) {
         //[{"color":"粉色","url":"http://192.168.25.133/group1/M00/00/00/wKgZhVmOXq2AFIs5AAgawLS1G5Y004.jpg"}

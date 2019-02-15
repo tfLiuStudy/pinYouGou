@@ -49,7 +49,6 @@
     <!--不强制依赖并且可以锁定版本-->
     <dependencyManagement>
         <dependencies>
-            <!--poi-->
             <!-- Spring -->
             <dependency>
                 <groupId>org.springframework</groupId>

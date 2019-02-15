@@ -108,6 +108,7 @@
                 </td>
                 <td class="text-center">
                     <a class="btn bg-olive btn-xs" href="goods_edit.html#?id={{entity.id}}">修改</a>
+                    <a ng-if="entity.auditStatus ==1" class="btn bg-olive btn-xs" href="seckill.html#?id={{entity.id}}">申请秒杀</a>
                 </td>
             </tr>
             </tbody>
