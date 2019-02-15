@@ -24,6 +24,7 @@
     <script type="text/javascript" src="../js/controller/brandController.js"></script>
     <!--引入brandService-->
     <script type="text/javascript" src="../js/service/brandService.js"></script>
+    <script type="text/javascript" src="../js/service/uploadService.js"></script>
 </head>
 <body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="brandController">
 <!-- .box-body -->
@@ -49,6 +50,8 @@
                     <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i
                             class="fa fa-refresh"></i> 刷新
                     </button>
+                    <button type="button" class="btn btn-default" data-toggle="modal"
+                            data-target="#fileUpload"><i class="fa fa-file-o"></i> 品牌导入
                 </div>
             </div>
         </div>
@@ -128,5 +131,53 @@
     </div>
 </div>
 
+<!--文件上传-->
+<div class="modal fade" id="fileUpload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">品牌数据导入</h3>
+            </div>
+            <div class="modal-footer">
+                <input type="file" multiple id="file">
+                <button type="button" ng-click ="dataImport()" class="btn btn-default" data-toggle="modal"
+                        data-target="#showData" data-dismiss="modal" aria-hidden="true"><i class="fa fa-file-o"></i> 内容展示
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--展示要导入的品牌列表-->
+<div class="modal fade" id="showData" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">品牌数据展示</h3>
+            </div>
+            <!--数据列表-->
+            <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+                <thead>
+                <tr>
+                    <th class="sorting">品牌名称</th>
+                    <th class="sorting">品牌首字母</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="brand in brandListI">
+                    <td>{{brand.name}}</td>
+                    <td>{{brand.firstChar}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+            <div class="modal-footer">
+                <button class="btn btn-default" ng-click="addBrands()" data-target="#showData" data-dismiss="modal" aria-hidden="true">确认导入
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

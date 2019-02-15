@@ -15,6 +15,8 @@
 
     <!-- 引入angular的js -->
     <script type="text/javascript" src="./plugins/angularjs/angular.min.js"></script>
+    <!-- 引入jQuery的js -->
+    <script type="text/javascript" src="./plugins/jquery/jquery.min.js"></script>
 
     <!-- 引入分页相关的JS和CSS -->
 
@@ -799,8 +801,53 @@
         </div>
     </div>
 </div>
+<!-- 楼层位置 -->
+<div id="floor-index" class="floor-index" style="display: block">
+    <ul>
+        <li>
+            <a class="word" id="topLinkWord" style="display:block;">回顶部</a>
+        </li>
+        <li>
+
+            <a class="word" id="floor1LinkWord" style="display: block;">今日推荐</a>
+        </li>
+        <li>
+
+            <a class="word" id="floor2LinkWord" style="display: block;">猜你喜欢</a>
+        </li>
+        <li>
+
+            <a class="word" id="floor3LinkWord" style="display: block;">有趣区</a>
+        </li>
+        <li>
+
+            <a class="word" id="floor4LinkWord" style="display: block;">家用电器</a>
+        </li>
+        <li>
+
+            <a class="word" id="floor5LinkWord" style="display: block;">手机通讯</a>
+        </li>
+        <li>
+            <a class="word" id="bottomLinkWord" style="display: block;" >回底部</a>
+        </li>
+        <!--<li>-->
+        <!--<a class="num" href="javascript:;" style="display: none;">3F</a>-->
+        <!--<a class="word" href="javascript;;" style="display: block;">电脑办公</a>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<a class="num" href="javascript:;" style="display: none;">4F</a>-->
+        <!--<a class="word" href="javascript;;" style="display: block;">家居家具</a>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<a class="num" href="javascript:;" style="display: none;">5F</a>-->
+        <!--<a class="word" href="javascript;;" style="display: block;">运动户外</a>-->
+        <!--</li>-->
+
+
+    </ul>
+</div>
 <!--推荐-->
-<div class="show">
+<div class="show" id="floor-1">
     <div class="py-container">
         <ul class="yui3-g Recommend">
             <li class="yui3-u-1-6  clock">
@@ -825,7 +872,7 @@
     </div>
 </div>
 <!--喜欢-->
-<div class="like">
+<div class="like" id="floor-2">
     <div class="py-container">
         <div class="title">
             <h3 class="fl">猜你喜欢</h3>
@@ -952,7 +999,7 @@
     </div>
 </div>
 <!--有趣-->
-<div class="fun">
+<div class="fun" id="floor-3">
     <div class="py-container">
         <div class="title">
             <h3 class="fl">传智播客.有趣区</h3>
@@ -1002,7 +1049,7 @@
     </div>
 </div>
 <!--楼层-->
-<div id="floor-1" class="floor">
+<div id="floor-4" class="floor">
     <div class="py-container">
         <div class="title floors">
             <h3 class="fl">家用电器</h3>
@@ -1112,7 +1159,8 @@
         </div>
     </div>
 </div>
-<div id="floor-2" class="floor">
+<!--手机通讯-->
+<div id="floor-5" class="floor">
     <div class="py-container">
         <div class="title floors">
             <h3 class="fl">手机通讯</h3>
@@ -1246,7 +1294,7 @@
 </div>
 <!-- 底部栏位 -->
 <!--页面底部-->
-<div class="clearfix footer">
+<div class="clearfix footer" id="bottomfloor">
     <div class="py-container">
         <div class="footlink">
             <div class="Mod-service">
@@ -1377,31 +1425,7 @@
     </div>
 </div>
 <!--页面底部END-->
-<!-- 楼层位置 -->
-<div id="floor-index" class="floor-index">
-    <ul>
-        <li>
-            <a class="num" href="javascript:;" style="display: none;">1F</a>
-            <a class="word" href="javascript;;" style="display: block;">家用电器</a>
-        </li>
-        <li>
-            <a class="num" href="javascript:;" style="display: none;">2F</a>
-            <a class="word" href="javascript;;" style="display: block;">手机通讯</a>
-        </li>
-        <li>
-            <a class="num" href="javascript:;" style="display: none;">3F</a>
-            <a class="word" href="javascript;;" style="display: block;">电脑办公</a>
-        </li>
-        <li>
-            <a class="num" href="javascript:;" style="display: none;">4F</a>
-            <a class="word" href="javascript;;" style="display: block;">家居家具</a>
-        </li>
-        <li>
-            <a class="num" href="javascript:;" style="display: none;">5F</a>
-            <a class="word" href="javascript;;" style="display: block;">运动户外</a>
-        </li>
-    </ul>
-</div>
+
 <!--侧栏面板开始-->
 <div class="J-global-toolbar">
     <div class="toolbar-wrap J-wrap">
@@ -1510,7 +1534,8 @@
             </div>
 
             <div class="toolbar-footer">
-                <div class="toolbar-tab tbar-tab-top"><a href="#"> <i class="tab-ico  "></i> <em
+                <div class="toolbar-tab tbar-tab-top">
+                    <a href="#"> <i class="tab-ico  "></i> <em
                         class="footer-tab-text">顶部</em> </a></div>
                 <div class="toolbar-tab tbar-tab-feedback"><a href="#" target="_blank"> <i class="tab-ico"></i> <em
                         class="footer-tab-text ">反馈</em> </a></div>
@@ -1542,7 +1567,6 @@
     </div>
 </script>
 <!--侧栏面板结束-->
-<script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript">
     $(function () {
         $("#service").hover(function () {
@@ -1557,6 +1581,51 @@
         });
 
     })
+</script>
+<!--楼层广告锚点-->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#topLinkWord").click(function() {
+            $("html, body").animate({
+                scrollTop: $("#nav-bottom").offset().top }, {duration: 500,easing: "swing"});
+            return false;
+        });
+
+        $("#floor1LinkWord").click(function() {
+            $("html, body").animate({
+                scrollTop: $("#floor-1").offset().top }, {duration: 500,easing: "swing"});
+            return false;
+        });
+
+        $("#floor2LinkWord").click(function() {
+            $("html, body").animate({
+                scrollTop: $("#floor-2").offset().top }, {duration: 500,easing: "swing"});
+            return false;
+        });
+
+        $("#floor3LinkWord").click(function() {
+            $("html, body").animate({
+                scrollTop: $("#floor-3").offset().top }, {duration: 500,easing: "swing"});
+            return false;
+        });
+
+        $("#floor4LinkWord").click(function() {
+            $("html, body").animate({
+                scrollTop: $("#floor-4").offset().top }, {duration: 500,easing: "swing"});
+            return false;
+        });
+
+        $("#floor5LinkWord").click(function() {
+            $("html, body").animate({
+                scrollTop: $("#floor-5").offset().top }, {duration: 500,easing: "swing"});
+            return false;
+        });
+        $("#bottomLinkWord").click(function() {
+            $("html, body").animate({
+                scrollTop: $("#bottomfloor").offset().top }, {duration: 500,easing: "swing"});
+            return false;
+        });
+    });
 </script>
 <script type="text/javascript" src="js/model/cartModel.js"></script>
 <script type="text/javascript" src="js/czFunction.js"></script>

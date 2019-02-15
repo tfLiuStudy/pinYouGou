@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -124,6 +125,20 @@ public class BrandController {
     }
 
 
+    /**m
+     * 像数据库中添加商品列表
+     * @param brandList  list集合
+     * @return
+     */
+    @RequestMapping("/addBrands.do")
+    public Result addBrands(@RequestBody List<Brand> brandList){
+        try {
+            brandService.addList(brandList);
+            return new Result(true,"成功");
+        }catch (Exception e){
+            return new Result(false,"失败");
+        }
+    }
 
 
 

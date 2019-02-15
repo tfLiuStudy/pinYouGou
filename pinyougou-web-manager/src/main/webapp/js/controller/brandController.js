@@ -1,5 +1,5 @@
 // 定义控制器:
-app.controller("brandController",function($scope,$controller,$http,brandService){
+app.controller("brandController",function($scope,$controller,$http,brandService,uploadService){
 	// AngularJS中的继承:伪继承
 	$controller('baseController',{$scope:$scope});
 	
@@ -79,5 +79,42 @@ app.controller("brandController",function($scope,$controller,$http,brandService)
 			$scope.list = response.rows;
 		});
 	}
-	
+
+    $scope.uploadFile = function(){
+        // 调用uploadService的方法完成文件的上传
+        uploadService.uploadFile().success(
+        	function(response){
+                if(response.flag){
+                    // 获得url
+                    $scope.image_entity.url =  response.message;
+                }else{
+                    alert(response.message);
+            }
+        });
+    }
+
+    //excel导入
+    $scope.dataImport = function () {
+		uploadService.dataImportBrand().success(
+			function (response) {
+				if (response.flag){
+					$scope.brandListI = response.list;
+				}
+            }
+		)
+    }
+
+    /**
+	 * 像数据库中添加品牌
+     */
+    $scope.addBrands = function () {
+		brandService.addBrands($scope.brandListI).success(
+			function (response) {
+				if (response.flag){
+					alert("添加成功");
+				}
+            }
+		)
+    }
+
 });

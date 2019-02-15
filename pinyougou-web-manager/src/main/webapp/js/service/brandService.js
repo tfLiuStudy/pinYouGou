@@ -31,4 +31,9 @@ app.service("brandService",function($http){
 	this.selectOptionList = function(){
 		return $http.get("../brand/selectOptionList.do");
 	}
+	
+	//像数据库中添加品牌
+	this.addBrands = function (brandList) {
+		return $http.post("../brand/addBrands.do",brandList);
+    }
 });
