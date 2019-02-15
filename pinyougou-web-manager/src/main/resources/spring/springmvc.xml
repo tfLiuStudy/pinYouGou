@@ -45,7 +45,7 @@
     <dubbo:application name="pinyougou-web-manager"></dubbo:application>
     <!--注册中心配置,用于配置连接注册中心的信息-->
     <dubbo:registry address="zookeeper://192.168.200.128:2181"></dubbo:registry>
-    <dubbo:annotation package="cn.itcast.core.controller"></dubbo:annotation>
+    <dubbo:annotation package="cn.itcast.core"></dubbo:annotation>
     <!--配置校验服务提供方是否存在-->
     <dubbo:consumer check="false" timeout="6000000"></dubbo:consumer>
 

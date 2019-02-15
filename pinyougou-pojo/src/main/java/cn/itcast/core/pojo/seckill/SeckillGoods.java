@@ -7,6 +7,13 @@ import java.util.Date;
 public class SeckillGoods implements Serializable {
     private Long id;
 
+
+/*    goodsId
+    itemId
+    price
+    smallPic
+    stockCount
+    title*/
     /**
      * spu ID
      */

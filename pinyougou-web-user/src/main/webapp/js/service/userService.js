@@ -33,5 +33,14 @@ app.service('userService',function($http){
 	this.sendCode=function(phone){
 		return $http.get('../user/sendCode.do?phone='+phone);
 	}
+
+    this.findOneByUserName = function () {
+        alert("2222")
+        return $http.post('../user/findOneByUserName.do');
+    }
+
+    this.updateUserInfo = function (user) {
+        return $http.post('../user/updateUserInfo.do',user);
+    }
 	
 });

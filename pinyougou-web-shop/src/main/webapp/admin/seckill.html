@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>秒杀管理</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- 引入angular的js -->
+    <script type="text/javascript" src="../plugins/angularjs/angular.js"></script>
+
+
+    <!--引入基础模块和基础控制器-->
+    <script type="text/javascript" src="../js/base.js"></script>
+
+    <!--引入服务层和控制层-->
+    <script type="text/javascript" src="../js/controller/seckillController.js"></script>
+    <script type="text/javascript" src="../js/service/seckillService.js"></script>
+
+
+</head>
+
+<body class="hold-transition skin-red sidebar-mini"
+      ng-app="pinyougou" ng-controller="seckillController" ng-init="search()">
+<!-- .box-body -->
+<div class="box-header with-border">
+    <h3 class="box-title">秒杀管理</h3>
+</div>
+
+<div class="box-body">
+
+    <!-- 数据表格 -->
+    <div class="table-box">
+
+        <!--工具栏-->
+        <div class="pull-left">
+            <div class="form-group form-inline">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" title="屏蔽" onclick='confirm("你确认要屏蔽吗？")'><i
+                            class="fa fa-ban"></i> 屏蔽
+                    </button>
+                    <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i
+                            class="fa fa-refresh"></i> 刷新
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="box-tools pull-right">
+            <div class="has-feedback">
+<!--                状态：<select ng-model="searchEntity.auditStatus">
+                <option value="">全部</option>
+                <option value="0">未申请</option>
+                <option value="1">审核通过</option>
+            </select>-->
+                商品名称：<input type="text" ng-model="searchEntity.goodsName">
+                <button class="btn btn-default">查询</button>
+            </div>
+        </div>
+        <!--工具栏/-->
+
+        <!--数据列表-->
+        <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+            <thead>
+            <tr>
+                <th class="sorting">库存id</th>
+                <th class="sorting">商品id</th>
+                <th class="sorting">商品标题</th>
+                <th class="sorting">商品价格</th>
+                <th class="sorting">库存数量</th>
+                <th class="sorting">三级分类</th>
+                <th class="text-center">申请秒杀</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="entity in list">
+                <td>{{entity.id}}</td>
+                <td>{{entity.goodsId}}</td>
+                <td>{{entity.title}}</td>
+                <td>{{entity.price}}</td>
+                <td>{{entity.num}}</td>
+                <td>{{entity.categoryid}}</td>
+                <td>
+                    <button type="button" ng-click="findOne(entity.id)"   class="btn btn-default" data-toggle="modal"
+                            data-target="#seckillEdit"><i class="fa fa-file-o"></i> 秒杀编辑</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!--数据列表/-->
+
+
+    </div>
+    <!-- 数据表格 /-->
+
+</div>
+<!-- /.box-body -->
+<div class="modal fade" id="seckillEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">秒杀编辑</h3>
+                <div class="control-group">商品ID
+                    <label for="inputPassword" class="control-label">：</label>
+                    <div class="controls">
+                        <input type="text" ng-model="SeckillGoods.goodsId" readonly="readonly"  class="input-xfat input-xlarge">
+                    </div>
+                </div>
+                <div class="control-group">库存商品ID
+                    <label for="inputPassword" class="control-label">：</label>
+                    <div class="controls">
+                        <input type="text" ng-model="SeckillGoods.itemId" readonly="readonly"  class="input-xfat input-xlarge">
+                    </div>
+                </div>
+                <div class="control-group">标题
+                    <label for="inputPassword" class="control-label">：</label>
+                    <div class="controls">
+                        <input type="text" ng-model="SeckillGoods.title" readonly="readonly"  class="input-xfat input-xlarge">
+                    </div>
+                </div>
+                <div class="control-group">商品图片
+                    <label for="inputPassword" class="control-label">：</label>
+                    <div class="controls">
+                        <input type="text" ng-model="SeckillGoods.smallPic" readonly="readonly"  class="input-xfat input-xlarge">
+                    </div>
+                </div>
+                <div class="control-group">原价格
+                    <label for="inputPassword" class="control-label">：</label>
+                    <div class="controls">
+                        <input type="text" readonly="readonly" ng-model="SeckillGoods.price" class="input-xfat input-xlarge">
+                    </div>
+                </div>
+                <div class="control-group">秒杀价格
+                    <label for="inputPassword" class="control-label">：</label>
+                    <div class="controls">
+                        <input type="text" ng-model="SeckillGoods.costPrice" class="input-xfat input-xlarge">
+                    </div>
+                </div>
+                <div class="control-group">开始时间
+                    <label for="inputPassword" class="control-label">：</label>
+                    <div class="controls">
+                        <input type="date"  ng-model="SeckillGoods.startTime" class="input-xfat input-xlarge">
+                    </div>
+                </div>
+                <div class="control-group">结束时间
+                    <label for="inputPassword" class="control-label">：</label>
+                    <div class="controls">
+                        <input type="date"  ng-model="SeckillGoods.endTime" class="input-xfat input-xlarge">
+                    </div>
+                </div>
+                <div class="control-group">秒杀商品数
+                    <label for="inputPassword" class="control-label">：</label>
+                    <div class="controls">
+                        <input type="text"  ng-model="SeckillGoods.num" class="input-xfat input-xlarge">
+                    </div>
+                </div>
+                <div class="control-group">剩余库存数
+                    <label for="inputPassword" class="control-label">：</label>
+                    <div class="controls">
+                        <input type="text"  ng-model="SeckillGoods.stockCount" readonly="readonly" class="input-xfat input-xlarge">
+                    </div>
+                </div>
+                <div class="control-group">描述
+                    <label for="inputPassword" class="control-label">：</label>
+                    <div class="controls">
+                        <input type="text"  ng-model="SeckillGoods.introduction" class="input-xfat input-xlarge">
+                    </div>
+                </div>
+                <button type="button" ng-click="commitSeckill()" class="btn btn-default"><i class="fa fa-file-o"></i>提交审核</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
