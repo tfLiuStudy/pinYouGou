@@ -4,6 +4,8 @@ import cn.itcast.core.entity.PageResult;
 import cn.itcast.core.pojo.good.Goods;
 import cn.itcast.core.vo.GoodsVo;
 
+import java.util.List;
+
 public interface GoodsService {
 
     void add(GoodsVo goodsVo);
@@ -19,4 +21,7 @@ public interface GoodsService {
     void updateStatus(Long[] ids,String status);
 
     void delete(Long[] ids);
+
+    PageResult searchByMarket(Integer page, Integer rows);
+    public List<Goods> searchByMarketAll();
 }
