@@ -3,6 +3,7 @@ package cn.itcast.core.pojo.order;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class Order implements Serializable {
     /**
@@ -39,6 +40,19 @@ public class Order implements Serializable {
      * 订单更新时间
      */
     private Date updateTime;
+
+    /**
+     * 查询所有订单
+     */
+    private List<OrderItem> orderItems;
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
 
     /**
      * 付款时间
