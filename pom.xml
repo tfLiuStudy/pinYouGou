@@ -49,6 +49,12 @@
     <!--不强制依赖并且可以锁定版本-->
     <dependencyManagement>
         <dependencies>
+            <!--poi-->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>3.17</version>
+            </dependency>
             <!-- Spring -->
             <dependency>
                 <groupId>org.springframework</groupId>
