@@ -23,16 +23,16 @@
 
     <script type="text/javascript" src="../js/base_pagination.js"></script>
     <script type="text/javascript" src="../js/controller/baseController.js"></script>
-    <script type="text/javascript" src="../js/controller/secKillGoodsController.js"></script>
-    <script type="text/javascript" src="../js/service/secKillGoodsService.js"></script>
+    <script type="text/javascript" src="../js/controller/secKillOrdersController.js"></script>
+    <script type="text/javascript" src="../js/service/secKillOrdersService.js"></script>
 </head>
 
-<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="secKillGoodsController"
-      ng-init="searchEntity={status:'0'}">
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="secKillOrdersController"
+      ng-init="searchEntity={status:'2'}">
 <!-- .box-body -->
 
 <div class="box-header with-border">
-    <h3 class="box-title">秒杀商品审核</h3>
+    <h3 class="box-title">秒杀订单审核</h3>
 </div>
 
 <div class="box-body">
@@ -47,19 +47,13 @@
                     <button type="button" ng-click="dele()" class="btn btn-default" title="删除"><i
                             class="fa fa-trash-o"></i> 删除
                     </button>
-                    <button type="button" ng-click="updateStatus('1')" class="btn btn-default" title="审核通过"><i
-                            class="fa fa-check"></i> 审核通过
-                    </button>
-                    <button type="button" ng-click="updateStatus('2')" class="btn btn-default" title="驳回"><i
-                            class="fa fa-ban"></i> 驳回
-                    </button>
                     <button type="button" class="btn btn-default" title="刷新"><i class="fa fa-refresh"></i> 刷新</button>
                 </div>
             </div>
         </div>
         <div class="box-tools pull-right">
             <div class="has-feedback">
-                商品标题：<input>
+                订单号：<input>
                 <button class="btn btn-default">查询</button>
             </div>
         </div>
@@ -72,23 +66,28 @@
                 <th class="" style="padding-right:0px">
                     <input id="selall" type="checkbox" class="icheckbox_square-blue">
                 </th>
-                <th class="sorting_asc">商品ID</th>
-                <th class="sorting">标题</th>
-                <th class="sorting">商品原价格</th>
-                <th class="sorting">商品秒杀价格</th>
-                <th class="sorting">商家名称</th>
-                <th class="sorting">状态</th>
+                <th class="sorting_asc">订单号</th>
+                <th class="sorting">商品ID</th>
+                <th class="sorting">支付金额</th>
+                <th class="sorting">用户ID</th>
+                <th class="sorting">商家ID</th>
+                <th class="sorting">创建时间</th>
+                <th class="sorting">订单状态</th>
+                <th class="sorting">交易流水</th>
                 <th class="text-center">操作</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="entity in list">
                 <td><input ng-click="updateSelection($event,entity.id)" type="checkbox"></td>
-                <td>{{entity.goodsId}}</td>
-                <td>{{entity.title}}</td>
-                <td>{{entity.price}}</td>
-                <td>{{entity.costPrice}}</td>
+                <td>{{entity.id}}</td>
+                <td>{{entity.seckillId}}</td>
+                <td>{{entity.money}}</td>
+                <td>{{entity.userId}}</td>
                 <td>{{entity.sellerId}}</td>
+                <td>{{entity.createTime}}</td>
+                <td>{{entity.status}}</td>
+                <td>{{entity.transactionId}}</td>
                 <td>
                     <span>
                         {{status[entity.status]}}
