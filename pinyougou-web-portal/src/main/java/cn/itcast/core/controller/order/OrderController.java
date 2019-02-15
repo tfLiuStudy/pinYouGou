@@ -30,7 +30,7 @@ public class OrderController {
         }
     }
     //查询所有订单
-    @RequestMapping("/findAll")
+    @RequestMapping("/findAll.do")
     public List<Order> findAll(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         List<Order>OrderList = orderService.findAll(username);
