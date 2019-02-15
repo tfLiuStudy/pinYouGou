@@ -29,7 +29,7 @@ public class OrderController {
             return new Result(false,"提交订单失败");
         }
     }
-    //查询所有订单
+    //查询所有的订单
     @RequestMapping("/findAll.do")
     public List<Order> findAll(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
