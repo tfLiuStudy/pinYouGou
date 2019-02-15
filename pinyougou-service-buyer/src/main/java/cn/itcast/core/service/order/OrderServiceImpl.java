@@ -9,6 +9,8 @@ import cn.itcast.core.pojo.item.Item;
 import cn.itcast.core.pojo.log.PayLog;
 import cn.itcast.core.pojo.order.Order;
 import cn.itcast.core.pojo.order.OrderItem;
+import cn.itcast.core.pojo.order.OrderItemQuery;
+import cn.itcast.core.pojo.order.OrderQuery;
 import cn.itcast.core.utils.uniquekey.IdWorker;
 import com.alibaba.dubbo.config.annotation.Service;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -104,10 +106,19 @@ public class OrderServiceImpl implements OrderService {
         redisTemplate.boundHashOps("BUYER-CART").delete(username);
     }
 
-    //查询所有订单
+    //根据用户查询所有订单
     @Override
     public List<Order> findAll(String username) {
-        List<Order> orderList = orderDao.selectByExample(null);
+        OrderQuery orderQuery = new OrderQuery();
+        orderQuery.createCriteria().andUserIdEqualTo(username);
+        List<Order> orderList = orderDao.selectByExample(orderQuery);
+        for (Order order:orderList){
+            Long orderId = order.getOrderId();
+            OrderItemQuery orderItemQuery = new OrderItemQuery();
+            orderItemQuery.createCriteria().andOrderIdEqualTo(orderId);
+            List<OrderItem> orderItemList = orderItemDao.selectByExample(orderItemQuery);
+            order.setOrderItems(orderItemList);
+        }
         return orderList;
     }
 }
