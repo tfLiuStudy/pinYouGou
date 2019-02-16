@@ -34,10 +34,6 @@ public class CartController {
     public Result addGoodsToCartList(Long itemId, Integer num, HttpServletRequest request,HttpServletResponse response){
 //        System.out.println(111);
         try {
-            //服务端支持CORS(跨域资源共享)
-//            response.setHeader("Access-Control-Allow-Origin","http://localhost:9003");
-            //服务端支持携带cookie
-//            response.setHeader("Access-Control-Allow-Credentials","true");
             //声明一个购物车
             //获取到购物车
             String username = SecurityContextHolder.getContext().getAuthentication().getName();  //获得用户名

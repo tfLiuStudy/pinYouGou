@@ -1,6 +1,7 @@
 package cn.itcast.core.service.user;
 
 import cn.itcast.core.entity.PageResult;
+import cn.itcast.core.pojo.item.Item;
 import cn.itcast.core.pojo.order.Order;
 import cn.itcast.core.pojo.user.User;
 
@@ -17,4 +18,6 @@ public interface UserService {
     User findOne(String userId);
 
     void updateUser(User user);
+
+    List<Item> findAllConcern(String userId);
 }

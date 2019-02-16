@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opensaml.ws.wssecurity.impl.SaltImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisAccessor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -26,6 +28,9 @@ public class Demo2 {
 
     @Autowired
     private OrderDao orderDao;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Test
     public void test2(){
@@ -104,6 +109,11 @@ public class Demo2 {
             return total;
         }
         return total;
+    }
+
+    @Test
+    public void del(){
+        redisTemplate.delete("CONCERN");
     }
 
 }

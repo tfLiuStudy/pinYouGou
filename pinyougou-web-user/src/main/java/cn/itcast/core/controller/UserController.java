@@ -1,6 +1,7 @@
 package cn.itcast.core.controller;
 
 import cn.itcast.core.entity.Result;
+import cn.itcast.core.pojo.item.Item;
 import cn.itcast.core.pojo.user.User;
 import cn.itcast.core.service.user.UserService;
 import cn.itcast.core.utils.phone.PhoneFormatCheckUtils;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -68,6 +70,13 @@ public class UserController {
             e.printStackTrace();
             return new Result(false, "修改失败");
         }
+    }
+
+    //查询当前登陆账户的收藏商品
+    @RequestMapping("/findAllConcern.do")
+    public List<Item> getAll(){
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userService.findAllConcern(userId);
     }
 
 }

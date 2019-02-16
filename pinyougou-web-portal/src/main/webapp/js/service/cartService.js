@@ -35,6 +35,11 @@ app.service('cartService',function($http){
 	this.submitOrder=function(order){
 		return $http.post('map/add.do',order);		
 	}
-	
+
+
+    this.addConcern = function (item) {
+        //要跨域
+        return $http.post('../concern/add.do',item);
+    }
 	
 });

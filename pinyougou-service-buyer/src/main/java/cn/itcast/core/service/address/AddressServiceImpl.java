@@ -35,7 +35,7 @@ public class AddressServiceImpl implements AddressService {
     public void del(Long[] ids) {
         if (ids != null && ids.length>0){
             for (Long id : ids) {
-                addressDao.deleteByExample(id);
+                addressDao.deleteByPrimaryKey(id);
             }
         }
     }

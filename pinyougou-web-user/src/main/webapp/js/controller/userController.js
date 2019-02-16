@@ -68,5 +68,14 @@ app.controller('userController' ,function($scope,$controller   ,userService,uplo
             }
 		)
     }
+
+    $scope.findConcern = function () {
+    	alert("111")
+		userService.findConcern().success(
+			function (response) {
+				$scope.itemList = response;
+            }
+		)
+    }
 	
 });	

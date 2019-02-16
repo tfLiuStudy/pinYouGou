@@ -86,5 +86,18 @@ app.controller('cartController',function($scope,cartService){
 			}				
 		);		
 	}
+
+
+    $scope.addConcern = function (tar) {
+		$scope.item.id = tar.itemId;
+		$scope.item.title = tar.title;
+		$scope.item.price = tar.price;
+		$scope.item.image = tar.picPath;
+        cartService.addConcern(item).success(
+            function (response) {
+            	alert(response.message)
+            }
+        )
+    }
 	
 });

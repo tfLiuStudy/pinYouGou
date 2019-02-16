@@ -1,18 +1,22 @@
 package cn.itcast.core.service;
 
+import cn.itcast.core.dao.item.ItemDao;
 import cn.itcast.core.dao.user.UserDao;
+import cn.itcast.core.pojo.item.Item;
 import cn.itcast.core.pojo.user.User;
 import cn.itcast.core.pojo.user.UserQuery;
 import cn.itcast.core.service.user.UserService;
 import cn.itcast.core.utils.md5.MD5Util;
 import com.alibaba.dubbo.config.annotation.Service;
 import org.apache.commons.lang.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 
 import javax.annotation.Resource;
 import javax.jms.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -25,6 +29,9 @@ public class UserServicesImpl implements UserService {
 
     @Resource
     private Destination smsDestination;
+
+    @Autowired
+    private ItemDao itemDao;
 
     @Resource
     private RedisTemplate<String,Object> redisTemplate;
@@ -89,5 +96,11 @@ public class UserServicesImpl implements UserService {
             user.setId(userTar.getId());
             userDao.updateByPrimaryKeySelective(user);
         }
+    }
+
+    @Override
+    public List<Item> findAllConcern(String userId) {
+        List<Item> itemIdList = (List<Item>) redisTemplate.boundHashOps("CONCERN").get(userId);
+        return itemIdList;
     }
 }

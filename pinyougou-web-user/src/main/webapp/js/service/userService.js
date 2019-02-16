@@ -42,5 +42,8 @@ app.service('userService',function($http){
     this.updateUserInfo = function (user) {
         return $http.post('../user/updateUserInfo.do',user);
     }
-	
+
+    this.findConcern=function () {
+        return $http.get('../user/findAllConcern.do')
+    }
 });
