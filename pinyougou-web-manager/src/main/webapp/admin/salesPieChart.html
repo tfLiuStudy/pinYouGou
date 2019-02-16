@@ -20,16 +20,26 @@
     <script type="text/javascript" src="../js/base_pagination.js"></script>
     <!--基础控制器,baseController-->
     <script type="text/javascript" src="../js/controller/baseController.js"></script>
-    <!--引入brandController-->
-    <script type="text/javascript" src="../js/controller/brandController.js"></script>
-    <!--引入brandService-->
-    <script type="text/javascript" src="../js/service/brandService.js"></script>
+    <!--引入salesPieChartController-->
+    <script type="text/javascript" src="../js/controller/salesPieChartController.js"></script>
+    <!--引入salesPieChartService.js-->
+    <script type="text/javascript" src="../js/service/salesPieChartService.js"></script>
     <script type="text/javascript" src="../js/service/uploadService.js"></script>
     <!--引入echarts-->
     <script type="text/javascript" src="../plugins/echarts/echarts.min.js"></script>
 
 </head>
-<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="Controller">
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="salesPieChartController" >
+<table>
+    <tr ng-repeat="entity in list">
+        <td>
+            {{entity.name}}
+        </td>
+        <td>
+            {{entity.age}}
+        </td>
+    </tr>
+</table>
 <!-- .box-body -->
 <div class="box-header with-border">
     <h3 class="box-title">销售饼状图</h3>
@@ -56,22 +66,29 @@
     <table class="table table-bordered table-striped" width="800px">
         <tr>
 
-            <td>商品分类</td>
+            <td>选取一级分类</td>
 
             <td>
-                <select class="form-control" ng-model="entity.categoryId"
-                        ng-options="item.id as item.name for item in contentCategoryList"></select>
+                <select class="form-control" ng-model="entity.category1_Id"
+                        ng-options="item.id as item.name for item in CategoryList1"></select>
+            </td>
+
+            <td>选取二级分类</td>
+
+            <td>
+                <select class="form-control" ng-model="entity.category2_Id"
+                        ng-options="item.id as item.name for item in CategoryList2"></select>
             </td>
             <td>
-                <button class="button" id="button01" onclick="createPieChart()">生成饼状图</button>
+                <button class="button" id="button02" onclick="doShowChart()">生成饼状图</button>
             </td>
 
         </tr>
         <tr>
             <td>开始日期</td>
-           <td>
-               <input type="text" id="test1">
-           </td>
+            <td>
+                <input type="text" id="test1">
+            </td>
             <td>结束日期</td>
             <td>
                 <input type="text" id="test2">
@@ -79,26 +96,26 @@
 
         </tr>
 
-    </tr>
+        </tr>
 
 
     </table>
 </div>
 <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-<div class="main">
+<div class="main" title="销售饼状图" id="chartWindow">
     <div id="main1" style="width: 600px;height:400px;"></div>
     <div id="main2" style="width: 600px;height:400px;"></div>
 </div>
 
 <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('main1'));
-
+    var myChart = echarts.init(document.getElementById('main1'));//创建一个 ECharts 实例，返回 echartsInstance，不能在单个容器上初始化多个 ECharts 实例。
+                                                                 //getElementById() 方法可返回对拥有指定 ID的第一个对象的引用。
     var data = genData(20);
 
     option = {
         title : {
-            text: '销量分析',
+            text: '销量分析(单位：件)',
             subtext: '按同一类商品不同品牌统计',
             x:'center'
         },//标题
@@ -128,9 +145,9 @@
                                       // [{// 数据项的名称  name: '数据1',//数据项值 value: 10 }, { name: '数据2',  value: 20 }]
                 itemStyle: {
                     emphasis: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'//鼠标放在区域边框颜色
+                        shadowBlur: 10,//图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。
+                        shadowOffsetX: 0,//阴影水平方向上的偏移距离。
+                        shadowColor: 'rgba(0, 0, 0, 0.5)',//鼠标放在区域边框颜色
                     }//鼠标放在各个区域的样式
                 }
             }
@@ -138,6 +155,8 @@
     };
 
     // 使用刚指定的配置项和数据显示图表。
+    // echartsInstance.setOption设置图表实例的配置项以及数据，万能接口，
+    // 所有参数和数据的修改都可以通过 setOption 完成，ECharts 会合并新的参数和数据，然后刷新图表。
     myChart.setOption(option);
 
 
@@ -146,18 +165,18 @@
         var legendData = ['格力','海尔','容声','西门子'];
         var seriesData = [{name:'格力',value:'500'},{name:'海尔',value:'400'},{name:'容声',value:'600'},{name:'西门子',value:'800'}];
         var selected = {};
-      /*  for (var i = 0; i < 20; i++) {
-            name = Math.random() > 0.65
-                ? makeWord(4, 1) + '·' + makeWord(3, 0)
-                : makeWord(2, 1);
-            legendData.push(name);
-            seriesData.push({
-                name: name,
-                value: Math.round(Math.random() * 100000)
-            });
-            selected[name] = i < 6;
-        }
-*/
+        /*  for (var i = 0; i < 20; i++) {
+              name = Math.random() > 0.65
+                  ? makeWord(4, 1) + '·' + makeWord(3, 0)
+                  : makeWord(2, 1);
+              legendData.push(name);
+              seriesData.push({
+                  name: name,
+                  value: Math.round(Math.random() * 100000)
+              });
+              selected[name] = i < 6;
+          }
+  */
         return {
             legendData: legendData,
             seriesData: seriesData,
@@ -182,7 +201,7 @@
 
     option = {
         title : {
-            text: '销售额分析',
+            text: '销售额分析（单位：元）',
             subtext: '按同一类商品不同品牌统计',
             x:'center'
         },
@@ -223,13 +242,11 @@
 
 
     function genData(count) {
-        var nameList = [
-            '赵', '钱', '孙', '李', '周', '吴', '郑', '王', '冯', '陈', '褚', '卫', '蒋', '沈', '韩', '杨', '朱', '秦', '尤', '许', '何', '吕', '施', '张', '孔', '曹', '严', '华', '金', '魏', '陶', '姜', '戚', '谢', '邹', '喻', '柏', '水', '窦', '章', '云', '苏', '潘', '葛', '奚', '范', '彭', '郎', '鲁', '韦', '昌', '马', '苗', '凤', '花', '方', '俞', '任', '袁', '柳', '酆', '鲍', '史', '唐', '费', '廉', '岑', '薛', '雷', '贺', '倪', '汤', '滕', '殷', '罗', '毕', '郝', '邬', '安', '常', '乐', '于', '时', '傅', '皮', '卞', '齐', '康', '伍', '余', '元', '卜', '顾', '孟', '平', '黄', '和', '穆', '萧', '尹', '姚', '邵', '湛', '汪', '祁', '毛', '禹', '狄', '米', '贝', '明', '臧', '计', '伏', '成', '戴', '谈', '宋', '茅', '庞', '熊', '纪', '舒', '屈', '项', '祝', '董', '梁', '杜', '阮', '蓝', '闵', '席', '季', '麻', '强', '贾', '路', '娄', '危'
-        ];
-        var legendData = [];
-        var seriesData = [];
+        var legendData = ['格力','海尔','容声','西门子'];
+        var seriesData = [{name:'格力',value:'454500'},{name:'海尔',value:'232300'},{name:'容声',value:'23600'},{name:'西门子',value:'89800'}];
+
         var selected = {};
-        for (var i = 0; i < 50; i++) {
+        /*for (var i = 0; i < 50; i++) {
             name = Math.random() > 0.65
                 ? makeWord(4, 1) + '·' + makeWord(3, 0)
                 : makeWord(2, 1);
@@ -239,7 +256,7 @@
                 value: Math.round(Math.random() * 100000)
             });
             selected[name] = i < 6;
-        }
+        }*/
 
         return {
             legendData: legendData,
@@ -247,14 +264,14 @@
             selected: selected
         };
 
-        function makeWord(max, min) {
+        /*function makeWord(max, min) {
             var nameLen = Math.ceil(Math.random() * max + min);
             var name = [];
             for (var i = 0; i < nameLen; i++) {
                 name.push(nameList[Math.round(Math.random() * nameList.length - 1)]);
             }
             return name.join('');
-        }
+        }*/
     }
 </script>
 <script type="text/javascript" src="../plugins/laydate/laydate.js"></script>
@@ -268,6 +285,5 @@
         elem: '#test2' //指定元素
     });
 </script>
-
 </body>
 </html>
