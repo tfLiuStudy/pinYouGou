@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
     <!-- 页面meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>秒杀订单查询</title>
+    <title>商品管理</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
     <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
@@ -16,25 +17,22 @@
 
     <!-- 引入angular的js -->
     <script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
-
     <!-- 引入分页相关的JS和CSS -->
     <script type="text/javascript" src="../plugins/angularjs/pagination.js"></script>
     <link rel="stylesheet" href="../plugins/angularjs/pagination.css">
 
-    <!--引入基础模块和基础控制器-->
     <script type="text/javascript" src="../js/base_pagination.js"></script>
     <script type="text/javascript" src="../js/controller/baseController.js"></script>
-
-    <!--引入服务层和控制层-->
-    <script type="text/javascript" src="../js/controller/seckillOrderController.js"></script>
-    <script type="text/javascript" src="../js/service/seckillOrderService.js"></script>
-
+    <script type="text/javascript" src="../js/controller/secKillOrdersController.js"></script>
+    <script type="text/javascript" src="../js/service/secKillOrdersService.js"></script>
 </head>
-<body class="hold-transition skin-red sidebar-mini"
-      ng-app="pinyougou" ng-controller="seckillOrderController">
+
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="secKillOrdersController"
+      ng-init="searchEntity={status:'2'}">
 <!-- .box-body -->
+
 <div class="box-header with-border">
-    <h3 class="box-title">秒杀订单查询</h3>
+    <h3 class="box-title">秒杀订单审核</h3>
 </div>
 
 <div class="box-body">
@@ -46,23 +44,17 @@
         <div class="pull-left">
             <div class="form-group form-inline">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default" title="新建" data-toggle="modal"
-                            data-target="#editModal" ng-click="entity={}"><i class="fa fa-file-o"></i> 新建
-                    </button>
-                    <button type="button" class="btn btn-default" title="删除" ng-click="dele()"><i
+                    <button type="button" ng-click="dele()" class="btn btn-default" title="删除"><i
                             class="fa fa-trash-o"></i> 删除
                     </button>
-                    <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i
-                            class="fa fa-refresh"></i> 刷新
-                    </button>
+                    <button type="button" class="btn btn-default" title="刷新"><i class="fa fa-refresh"></i> 刷新</button>
                 </div>
             </div>
         </div>
         <div class="box-tools pull-right">
             <div class="has-feedback">
-                品牌名称:<input type="text" ng-model="searchEntity.name"> 品牌首字母:<input type="text"
-                                                                                   ng-model="searchEntity.firstChar">
-                <input class="btn btn-default" ng-click="reloadList()" type="button" value="查询">
+                订单号：<input>
+                <button class="btn btn-default">查询</button>
             </div>
         </div>
         <!--工具栏/-->
@@ -74,38 +66,43 @@
                 <th class="" style="padding-right:0px">
                     <input id="selall" type="checkbox" class="icheckbox_square-blue">
                 </th>
-                <th class="sorting_asc">秒杀商品ID</th>
+                <th class="sorting_asc">订单号</th>
+                <th class="sorting">商品ID</th>
                 <th class="sorting">支付金额</th>
-                <th class="sorting">用户</th>
-                <th class="text-center">创建时间</th>
-                <th class="text-center">支付时间</th>
-                <th class="text-center">状态</th>
-                <th class="text-center">收货人电话</th>
-                <th class="text-center">收货人</th>
+                <th class="sorting">用户ID</th>
+                <th class="sorting">商家ID</th>
+                <th class="sorting">创建时间</th>
+                <th class="sorting">订单状态</th>
+                <th class="sorting">交易流水</th>
                 <th class="text-center">操作</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="entity in list">
-                <td><input type="checkbox"></td>
+                <td><input ng-click="updateSelection($event,entity.id)" type="checkbox"></td>
                 <td>{{entity.id}}</td>
+                <td>{{entity.seckillId}}</td>
                 <td>{{entity.money}}</td>
                 <td>{{entity.userId}}</td>
+                <td>{{entity.sellerId}}</td>
                 <td>{{entity.createTime}}</td>
-                <td>{{entity.payTime}}</td>
                 <td>{{entity.status}}</td>
-                <td>{{entity.receiverMobile}}</td>
-                <td>{{entity.receiver}}</td>
                 <td>{{entity.transactionId}}</td>
+                <td>
+                    <span>
+                        {{status[entity.status]}}
+                    </span>
+
+                </td>
                 <td class="text-center">
-                    <button type="button" class="btn bg-olive btn-xs" ng-click="findById(entity.id)" data-toggle="modal"
-                            data-target="#editModal">修改
-                    </button>
+                    <button type="button" class="btn bg-olive btn-xs">详情</button>
                 </td>
             </tr>
             </tbody>
         </table>
         <!--数据列表/-->
+
+
     </div>
     <!-- 数据表格 /-->
     <!-- 分页 -->
@@ -115,4 +112,5 @@
 <!-- /.box-body -->
 
 </body>
+
 </html>
