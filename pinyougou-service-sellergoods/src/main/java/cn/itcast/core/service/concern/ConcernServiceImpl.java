@@ -29,11 +29,14 @@ public class ConcernServiceImpl implements ConcernService {
         //先判断是否存在这个
         List<Item> itemIdList = (List<Item>) redisTemplate.boundHashOps("CONCERN").get(userId);
         //判断当前商品是否已经关注
-        for (Item itemTar : itemIdList) {
-            if (item.equals(itemTar.getId())){
-                return "当前商品已经关注";
+        if (itemIdList!=null&&itemIdList.size()>0){
+            for (Item itemTar : itemIdList) {
+                if (item.getId().equals(itemTar.getId())){
+                    return "当前商品已经关注";
+                }
             }
         }
+
         //不存在进行收藏
         //清空购物车中的当前购物项
         //添加到redis中
@@ -41,12 +44,12 @@ public class ConcernServiceImpl implements ConcernService {
         if (itemIdList!=null&&itemIdList.size()>0){
             //合并进去
             itemIdList.add(item);
-            redisTemplate.boundHashOps("CONCERN").put(item.getId(),itemIdList);
+            redisTemplate.boundHashOps("CONCERN").put(userId,itemIdList);
         }else{
             //第一次关注
             List<Item> newList = new ArrayList();
             newList.add(item);
-            redisTemplate.boundHashOps("CONCERN").put(item.getId(),newList);
+            redisTemplate.boundHashOps("CONCERN").put(userId,newList);
         }
         return "已关注";
     }

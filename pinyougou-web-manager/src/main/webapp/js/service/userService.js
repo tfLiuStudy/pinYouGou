@@ -5,7 +5,7 @@ app.service('userService',function($http){
          }
 
          this.downLoad = function () {
-             return $http.post("../user/downLoad.do")
+             $http.get("../user/downLoad.do")
          }
 
 

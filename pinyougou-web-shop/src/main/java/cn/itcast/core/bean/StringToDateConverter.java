@@ -17,7 +17,7 @@ public class StringToDateConverter implements Converter<String, Date> {
     public Date convert(String source) {
         SimpleDateFormat simpleDateFormat = null ;
         if (source.contains("/")){
-            simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:s");
         }else if (source.contains("-")){
             simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         }else{

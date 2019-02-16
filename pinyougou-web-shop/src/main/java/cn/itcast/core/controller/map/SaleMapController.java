@@ -2,6 +2,7 @@ package cn.itcast.core.controller.map;
 
 import cn.itcast.core.service.map.SaleMapService;
 import com.alibaba.dubbo.config.annotation.Reference;
+import freemarker.template.SimpleDate;
 import org.opensaml.ws.wssecurity.impl.SecurityUnmarshaller;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,11 +37,13 @@ public class SaleMapController {
         //得到当前已经登陆的商家的Id
         Map map = new HashMap();
         try{
-
-            String startVal = start.split(" G")[0];
-            String endVal = end.split(" G")[0];
-            Date startDate = new Date(startVal);
-            Date endDate = new Date(endVal);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date startDate = null;
+            Date endDate = null;
+            if (start.contains("-")){
+                startDate = simpleDateFormat.parse(start);
+                endDate = simpleDateFormat.parse(end);
+            }
             //判断是否合法
             isTrue(startDate,endDate);
             String seller = SecurityContextHolder.getContext().getAuthentication().getName();

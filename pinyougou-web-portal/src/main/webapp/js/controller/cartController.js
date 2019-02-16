@@ -87,13 +87,13 @@ app.controller('cartController',function($scope,cartService){
 		);		
 	}
 
-
+	$scope.itemt ={};
     $scope.addConcern = function (tar) {
-		$scope.item.id = tar.itemId;
-		$scope.item.title = tar.title;
-		$scope.item.price = tar.price;
-		$scope.item.image = tar.picPath;
-        cartService.addConcern(item).success(
+		$scope.itemt.id = tar.itemId;
+		$scope.itemt.title = tar.title;
+		$scope.itemt.price = tar.price;
+		$scope.itemt.image = tar.picPath;
+        cartService.addConcern($scope.itemt).success(
             function (response) {
             	alert(response.message)
             }

@@ -27,35 +27,6 @@ public class SaleMapServiceImpl implements SaleMapService {
     @Autowired
     private OrderDao orderDao;
 
-    /**m
-     * 获得销售折线图需要的时间和数据
-     */
-    @Override
-    public Map getDataAndTime(String sellerId, Date start, Date end) throws ParseException {
-        //根据指定的时间和所属的商家查询这个商家的订单
-        OrderQuery orderQuery = new OrderQuery();
-        OrderQuery.Criteria criteria = orderQuery.createCriteria();
-        criteria.andSellerIdEqualTo("liuzejin");
-        criteria.andPaymentTimeBetween(start,end);
-        criteria.andStatusEqualTo("2");
-        List<Order> orders = orderDao.selectByExample(orderQuery);
-        //对数据进行过滤
-        getOrder(orders);
-        //得到指定日期之间的日期
-        List<Date> dateList = FindDates.findDates(start, end);
-        //对数据进行分组
-        Map<Date, List<Order>> map = ListCat.getMap(orders);
-        //从新创建map集合，key是日期，value是当日享受额
-        Map<Date,BigDecimal> dataAndTime = new HashMap<>();
-        for (Date date : dateList) {
-            dataAndTime.put(date,getTotalByDay(map.get(date)));
-        }
-        //创建一个map集合，用于返回数据
-        Map resultMap = new HashMap();
-        resultMap.put("time",dateList);
-        resultMap.put("data",dataAndTime);
-        return resultMap;
-    }
 
     //去除时分秒，只保留年月日
     public void getOrder(List<Order> list) throws ParseException {
@@ -85,4 +56,11 @@ public class SaleMapServiceImpl implements SaleMapService {
         }
         return total;
     }
+
+    @Override
+    public Map getDataAndTime(String sellerId, Date start, Date end) throws ParseException {
+        return null;
+    }
+
+
 }

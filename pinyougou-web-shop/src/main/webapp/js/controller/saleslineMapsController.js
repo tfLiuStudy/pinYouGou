@@ -4,6 +4,11 @@ app.controller('saleslineMapsController' ,function($scope,$controller,$location,
 
     $scope.data = []
 
+    $scope.initMap = function(){
+        var dom = document.getElementById("container");
+        var myChart = echarts.init(dom);
+    }
+
     /**m
      * 获得销售折线图需要的时间和数据
      * @param start  开始时间
@@ -23,12 +28,12 @@ app.controller('saleslineMapsController' ,function($scope,$controller,$location,
     }
     
     $scope.maps=function () {
-        $scope.getTimeAndData($scope.start,$scope.end);
-
-        alert($scope.data+"--"+$scope.time);
 
         var dom = document.getElementById("container");
         var myChart = echarts.init(dom);
+
+        $scope.getTimeAndData($scope.start,$scope.end);
+
         var app = {};
         option = null;
         option = {
