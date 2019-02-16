@@ -136,7 +136,7 @@
         },//图例属性，用来说明饼状的每个扇区，data与下面series中的data相匹配
         series : [
             {
-                name: '品牌名称',//tooltip提示框中显示的内容,legend 的图例筛选，在 setOption 更新数据和配置项时用于指定对应的系列
+                name: '销量（件）',//tooltip提示框中显示的内容,legend 的图例筛选，在 setOption 更新数据和配置项时用于指定对应的系列
                 type: 'pie',//图形类型，如饼状图、柱状图
                 radius : '55%',//饼图的半径, string：例如，'55%'，表示外半径为可视区尺寸（容器高宽中较小一项）的 55% 长度。
                 center: ['40%', '50%'],//饼图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标。
@@ -162,8 +162,8 @@
 
     function genData(count) {
         var nameList = [ ];
-        var legendData = ['格力','海尔','容声','西门子'];
-        var seriesData = [{name:'格力',value:'500'},{name:'海尔',value:'400'},{name:'容声',value:'600'},{name:'西门子',value:'800'}];
+        var legendData = ['格力','海尔','容声','西门子','美的','小天鹅'];
+        var seriesData = [{name:'格力',value:'1200'},{name:'海尔',value:'920'},{name:'容声',value:'600'},{name:'西门子',value:'800'},{name:'美的',value:'740'},{name:'小天鹅',value:'420'}];
         var selected = {};
         /*  for (var i = 0; i < 20; i++) {
               name = Math.random() > 0.65
@@ -221,7 +221,7 @@
         },
         series : [
             {
-                name: '姓名',
+                name: '销售额（元）',
                 type: 'pie',
                 radius : '55%',
                 center: ['40%', '50%'],
@@ -242,8 +242,8 @@
 
 
     function genData(count) {
-        var legendData = ['格力','海尔','容声','西门子'];
-        var seriesData = [{name:'格力',value:'454500'},{name:'海尔',value:'232300'},{name:'容声',value:'23600'},{name:'西门子',value:'89800'}];
+        var legendData = ['格力','海尔','容声','西门子','美的','小天鹅'];
+        var seriesData = [{name:'格力',value:'4545000'},{name:'海尔',value:'3323000'},{name:'容声',value:'1006000'},{name:'西门子',value:'2298000'},{name:'美的',value:'2026500'},{name:'小天鹅',value:'903600'}];
 
         var selected = {};
         /*for (var i = 0; i < 50; i++) {
